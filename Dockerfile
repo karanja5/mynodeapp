@@ -1,24 +1,23 @@
 # Use an official Node runtime as the base image
 FROM node:14
 
-# Work directory will be /mynodeapp/src inside the container
-# which corresponds to mynodeapp/src on your host system
-WORKDIR /mynodeapp/src
+# The working directory for both the frontend and backend in the container will be /mynodeapp
+WORKDIR /mynodeapp
 
-# Copy package.json and package-lock.json to the WORKDIR
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
 # Install app dependencies
-# Note that `node_modules` should not be copied from host to container,
-# they should be installed inside the container
 RUN npm install
 
-# Now copy the rest of the application source code to the WORKDIR
-COPY . /mynodeapp/
+# Copy the rest of the application source code into the working directory
+COPY . .
 
+# The WORKDIR's context is /mynodeapp, so this will correctly place your source files including the 
+# public directory and src
 
 # Map port 3000 to the outside of the container
 EXPOSE 3000
 
-# Define the command to run app
-CMD ["node", "index.js"]
+# If index.js resides in the src directory, we need to adjust the CMD to reflect that
+CMD ["node", "src/index.js"]

@@ -6,6 +6,9 @@ const PORT = process.env.PORT || 3000;
 // Middleware for parsing JSON payloads
 app.use(bodyParser.json());
 
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, "public")));
+
 // In-memory 'database' for the items
 let items = [
   { id: 1, name: "Cup" },
