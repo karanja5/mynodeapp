@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const bodyParser = require("body-parser");
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,14 +6,13 @@ const PORT = process.env.PORT || 3000;
 // Middleware for parsing JSON payloads
 app.use(bodyParser.json());
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, "public")));
-
 // In-memory 'database' for the items
 let items = [
   { id: 1, name: "Cup" },
   { id: 2, name: "Glass" },
-  // Add more items as needed
+  { id: 3, name: "Spoon" },
+  { id: 4, name: "Fork" },
+  { id: 5, name: "Knife" },
 ];
 
 // ROOT endpoint sending a welcome message
